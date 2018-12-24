@@ -7,6 +7,10 @@ module CossBot
     def tick
       logger.info('=== Start of trading cycle ===')
       balances = exchange.account_balances
+      if balances[:status] && balances[:status].to_s != '200'
+        yield(nil, nil, balances)
+        return
+      end
       currency_to_sell = pair.split('_').last
       current_balance = balances.detect { |c| c['currency_code'] == currency_to_sell }['available'].to_f
       pair_depth = exchange.pair_depth(pair)
