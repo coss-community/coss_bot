@@ -7,7 +7,7 @@ module CossBot
     def tick
       logger.info('=== Start of trading cycle ===')
       balances = exchange.account_balances
-      if balances[:status] && balances[:status].to_s != '200'
+      if balances.is_a?(Hash) && balances[:status] && balances[:status].to_s != '200'
         yield(nil, nil, balances)
         return
       end
