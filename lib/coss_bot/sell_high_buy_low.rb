@@ -11,7 +11,7 @@ module CossBot
         yield(nil, nil, balances)
         return
       end
-      currency_to_sell = pair.split('_').last
+      currency_to_sell = pair.split('_').first
       current_balance = balances.detect { |c| c['currency_code'] == currency_to_sell }['available'].to_f
       pair_depth = exchange.pair_depth(pair)
       current_price = pair_depth['bids'].first.first.to_f
